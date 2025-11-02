@@ -1,177 +1,258 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useInView } from 'react-intersection-observer';
-import { Briefcase, Users, Zap, ShieldCheck, Star, Check } from 'lucide-react';
-import AutomobilePartsBanner from './AutomobilePartsBanner';
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import './schedule.css'; // Import the animation CSS from your Canvas
 
-// --- Reusable Animated Component ---
-const AnimatedCard = ({ children, delay }) => {
-  const { ref, inView } = useInView({ 
-    triggerOnce: true, // Only trigger the animation once
-    threshold: 0.1,    // Trigger when 10% of the item is visible
-  });
+// --- Data for the events ---
+const day1Events = [
+  { time: '09:00 AM', title: 'Registration', part: 'chassis' },
+  { time: '10:00 AM', title: 'Inaugural Ceremony', part: 'engine' },
+  { time: '11:30 AM', title: 'Technical Workshop 1', part: 'wheels' },
+  { time: '01:00 PM', title: 'Lunch Break', part: 'fuel' },
+  { time: '02:00 PM', title: 'Industrial Visit', part: 'doors' },
+  { time: '06:00 PM', title: 'Cultural Night', part: 'paint' },
+];
 
-  return (
-    <div
-      ref={ref}
-      className={`transform transition-all duration-700 ease-out ${inView ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
+const day2Events = [
+  { time: '10:00 AM', title: 'Expert Talk Session', part: 'chassis-ev' },
+  { time: '11:30 AM', title: 'Technical Workshop 2', part: 'battery' },
+  { time: '01:00 PM', title: 'Lunch Break', part: 'charge' },
+  { time: '03:00 PM', title: 'Project Competition', part: 'spoiler' },
+  { time: '04:00 PM', title: 'Valedictory Ceremony', part: 'lights' },
+];
+
+// --- SVG Components for Car Parts (Styled with Tailwind) ---
+
+// --- Day 1: Car Parts ---
+const CarChassis = () => (
+    <path d="M50 120 h20 l10 -20 h160 l10 20 h20 v10 h-220z" className="fill-gray-600/20 stroke-gray-700 stroke-2" />
+);
+
+const CarEngine = () => (
+    <g transform="translate(90, 95)" className="fill-cyan-400/50 stroke-cyan-400/70">
+        <rect width="60" height="25" rx="2" />
+        <path d="M5 5 v15 h-5 M55 5 v15 h5 M10 0 v-5 h40 v5 M15 25 v5 h30 v-5" strokeWidth="2" strokeLinecap="round" />
+    </g>
+);
+
+const CarWheels = () => (
+  <>
+    <g transform="translate(85, 130)" className="fill-cyan-400/80 stroke-cyan-400/50 stroke-2">
+      <circle cx="0" cy="0" r="15" />
+      <circle cx="0" cy="0" r="8" className="fill-gray-900/80" />
+      <path d="M0 -6 v-3 M0 6 v3 M-6 0 h-3 M6 0 h3" className="stroke-cyan-400/50" strokeWidth="1.5" strokeLinecap="round" />
+    </g>
+    <g transform="translate(235, 130)" className="fill-cyan-400/80 stroke-cyan-400/50 stroke-2">
+      <circle cx="0" cy="0" r="15" />
+      <circle cx="0" cy="0" r="8" className="fill-gray-900/80" />
+      <path d="M0 -6 v-3 M0 6 v3 M-6 0 h-3 M6 0 h3" className="stroke-cyan-400/50" strokeWidth="1.5" strokeLinecap="round" />
+    </g>
+  </>
+);
+
+const CarDoors = () => (
+    <g transform="translate(130, 70)" className="fill-cyan-400/40 stroke-cyan-400/60 stroke-1">
+        <path d="M0 50 L 0 25 q 5 -5 10 -5 h30 l15 30 h-55z" />
+        <path d="M50 50 L 50 20 h35 l15 30 h-50z" />
+        <path d="M10 42 L 10 28 h30 l10 14" className="fill-gray-900/30 stroke-none" />
+        <path d="M55 42 L 55 28 h30 l10 14" className="fill-gray-900/30 stroke-none" />
+    </g>
+);
+
+const CarPaint = () => (
+    <path d="M70 120 l-5 -15 l15 -30 h150 l15 30 l-5 15 a20,20 0 0,1 -10,0" className="fill-yellow-400/50 stroke-yellow-400/80 stroke-1"/>
+);
+
+const FuelIcon = () => (
+    <g transform="translate(180 100)" className="stroke-green-500 fill-none" strokeWidth="2">
+        <rect x="0" y="5" width="15" height="20" rx="2" className="fill-green-500/20" />
+        <path d="M15 12 h5 q 5 0 5 5 v3" />
+    </g>
+);
+
+// --- Day 2: EV Parts ---
+const EVChassis = () => (
+    <path d="M50 120 q 20 -30 60 -30 h100 q 40 0 60 30 v10 h-220z" className="fill-gray-600/20 stroke-gray-700 stroke-2" />
+);
+
+const EVBattery = () => (
+    <rect x="100" y="118" width="120" height="12" rx="2" className="fill-blue-500/50 stroke-blue-400" />
+);
+
+const EVSpoiler = () => (
+    <path d="M250 90 c 5 -10 15 -15 25 -15 h5 l-5 15 h-25" className="fill-yellow-400/60 stroke-yellow-400/80" />
+);
+
+const EVLights = () => (
+    <>
+        <path d="M55 115 h-5 l15 -10 h10 z" className="fill-cyan-400/80" />
+        <path d="M255 115 h5 l-15 -10 h-10 z" className="fill-red-500/80" />
+    </>
+);
+
+const ChargeIcon = () => (
+    <g transform="translate(155, 100)" className="stroke-yellow-400 fill-yellow-400/20" strokeWidth="2" strokeLinecap="round">
+        <path d="M0 5 h10 v20 h-10z" />
+        <path d="M10 8 h3 M10 12 h5 M10 16 h3 M10 20 h5" />
+        <path d="M15 15 l10 0" />
+    </g>
+);
+
+
+const partComponents = {
+  chassis: CarChassis,
+  engine: CarEngine,
+  wheels: CarWheels,
+  doors: CarDoors,
+  paint: CarPaint,
+  fuel: FuelIcon,
+  'chassis-ev': EVChassis,
+  battery: EVBattery,
+  spoiler: EVSpoiler,
+  lights: EVLights,
+  charge: ChargeIcon,
 };
 
-// --- Data for Partnership Table ---
-const partnershipData = [
-  { deliverable: 'Logo on posters', platinum: true, gold: true, silver: true, bronze: true },
-  { deliverable: 'Logo on Banners', platinum: true, gold: true, silver: true, bronze: true },
-  { deliverable: 'Logo on Event Merchandise', platinum: true, gold: true, silver: true, bronze: true },
-  { deliverable: 'Logo on event emails', platinum: true, gold: true, silver: true, bronze: true },
-  { deliverable: 'Survey from participants', platinum: true, gold: true, silver: true, bronze: true },
-  { deliverable: 'Special mention in inaugural and closing ceremonies', platinum: true, gold: true, silver: true, bronze: false },
-  { deliverable: 'Logo on Delegate Certificates', platinum: true, gold: true, silver: true, bronze: false },
-  { deliverable: 'Exclusive talk/Interaction with participants', platinum: true, gold: true, silver: false, bronze: false },
-  { deliverable: 'Exclusive stall space for brand promotion', platinum: true, gold: false, silver: false, bronze: false },
-];
+// --- PartIcon (for side panel) ---
+const PartIcon = ({ part, isBuilt }) => {
+    const Icon = partComponents[part];
+    if (!Icon) return null;
+    return (
+        <div className={`p-2 border rounded-lg transition-all duration-300 ${isBuilt ? 'bg-cyan-400/20 border-cyan-400/50' : 'bg-gray-700/30 border-gray-700'}`}>
+           <svg viewBox="0 0 320 200" className="h-8 w-16">
+            <g className={`transition-opacity duration-500 ${isBuilt ? 'opacity-100' : 'opacity-40'}`}>
+                <Icon />
+            </g>
+           </svg>
+        </div>
+    )
+};
 
-// --- Data for Benefits Section ---
-const benefits = [
-  {
-    icon: <Zap className="h-10 w-10 text-cyan-400 mb-4" />,
-    title: "Enhance Brand Visibility",
-    description: "Gain wide exposure among hundreds of students, faculty, professionals, and industry leaders through event branding, digital promotions, and media coverage."
-  },
-  {
-    icon: <Users className="h-10 w-10 text-cyan-400 mb-4" />,
-    title: "Engage Future Talent",
-    description: "Interact directly with aspiring engineers and innovators who represent the next generation of technical leaders."
-  },
-  {
-    icon: <Briefcase className="h-10 w-10 text-cyan-400 mb-4" />,
-    title: "Strengthen Industry-Academia Collaboration",
-    description: "Support initiatives that encourage practical learning, research, and innovation in emerging technologies like electric vehicles, automation, and sustainable transport."
-  },
-  {
-    icon: <ShieldCheck className="h-10 w-10 text-cyan-400 mb-4" />,
-    title: "Showcase Corporate Social Responsibility",
-    description: "Align your brand with a student-led initiative that promotes education, technology, and sustainability - values that shape the future of mobility."
-  },
-];
+// --- Switch Component (Tailwind CSS) ---
+const Switch = ({ checked, onCheckedChange, id }) => (
+  <button
+    type="button"
+    role="switch"
+    aria-checked={checked}
+    onClick={() => onCheckedChange(!checked)}
+    id={id}
+    className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 ${checked ? 'bg-cyan-600' : 'bg-gray-600'}`}
+  >
+    <span
+      aria-hidden="true"
+      className={`inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${checked ? 'translate-x-5' : 'translate-x-0'}`}
+    />
+  </button>
+);
 
 
-// --- Main Sponsors Page Component ---
-const SponsorsPage = () => {
+// --- Main Schedule Component ---
+export default function Schedule() {
+  const [vehicle, setVehicle] = useState('car');
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const handleDayChange = (isEV) => {
+    setVehicle(isEV ? 'ev' : 'car');
+    setCurrentStep(0);
+  };
+
+  const events = vehicle === 'car' ? day1Events : day2Events;
+  const currentEvent = events[currentStep];
+
+  const handleNext = () => {
+    setCurrentStep((prev) => Math.min(prev + 1, events.length - 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  };
+  
+  const allParts = vehicle === 'car' ? day1Events.map(e => e.part) : day2Events.map(e => e.part)
+
+
   return (
-    <div className="bg-gray-900 text-white min-h-screen py-20 px-4">
-      <div className="max-w-5xl mx-auto space-y-20">
+    <div className="bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-lg w-full flex flex-col gap-6">
+      {/* --- Main Visual Area --- */}
+      <div className="relative bg-gray-900/50 rounded-lg p-4 h-64 flex items-center justify-center overflow-hidden">
+        {/* Assembly Line (Styled with Tailwind) */}
+        <div className="absolute bottom-10 left-0 w-full h-1 bg-gray-700/30" />
+        <div className="absolute bottom-10 left-0 w-[200%] h-1 flex gap-8 animate-scroll">
+            <div className="w-1/2 border-t-4 border-dashed border-gray-600/50"></div>
+            <div className="w-1/2 border-t-4 border-dashed border-gray-600/50"></div>
+        </div>
+
+        {/* Car Parts */}
+        <div className="w-full h-full">
+            <svg viewBox="0 0 320 200" className="w-full h-full">
+                {allParts.map((part, index) => {
+                    const PartComponent = partComponents[part];
+                    const isVisible = index <= currentStep;
+                    if (!PartComponent) return null;
+
+                    return (
+                        <g 
+                          key={part} 
+                          className={`transition-all duration-700 ease-in-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-5'}`}
+                        >
+                            <PartComponent />
+                        </g>
+                    )
+                })}
+            </svg>
+        </div>
         
-        {/* --- Why Partner with RevUp? Section --- */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-white mb-6">
-            Why Partner with RevUp?
-          </h1>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Partnering with RevUp, the flagship event of IEEE VTS SBC NSSCE, offers your
-            organization a unique opportunity to connect with some of the brightest young minds in
-            engineering and innovation. Your partnership with RevUp is not just a sponsorship—it's an
-            investment in empowering innovation, nurturing talent, and driving a smarter, sustainable
-            tomorrow.
-          </p>
+        {/* Side Panel for Parts */}
+        <div className="absolute right-2 top-2 bottom-2 w-28 bg-gray-900/50 p-2 rounded-md flex flex-col gap-2 overflow-y-auto">
+            <p className="text-xs font-bold text-center text-gray-400">PARTS</p>
+            {allParts.map((part, index) => (
+                 <PartIcon key={part} part={part} isBuilt={index <= currentStep} />
+            ))}
+        </div>
+      </div>
+
+      {/* --- Control Area --- */}
+      <div className="bg-gray-900/50 rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* Day Toggle */}
+        <div className="flex items-center space-x-2">
+          <label htmlFor="day-toggle" className={`font-medium transition-colors ${vehicle === 'car' ? 'text-cyan-400' : 'text-gray-300'}`}>
+            Day 1
+          </label>
+          <Switch
+            id="day-toggle"
+            checked={vehicle === 'ev'}
+            onCheckedChange={handleDayChange}
+          />
+          <label htmlFor="day-toggle" className={`font-medium transition-colors ${vehicle === 'ev' ? 'text-cyan-400' : 'text-gray-300'}`}>
+            Day 2
+          </label>
         </div>
 
-        {/* --- Benefits Grid --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {benefits.map((benefit, index) => (
-            <AnimatedCard key={benefit.title} delay={index * 150}> {/* Staggered delay */}
-              <div className="bg-gray-800 rounded-lg p-8 h-full"> {/* Added h-full for consistent height */}
-                {benefit.icon}
-                <h3 className="text-2xl font-semibold text-white mb-3">
-                  {benefit.title}
-                </h3>
-                <p className="text-gray-300">
-                  {benefit.description}
-                </p>
-              </div>
-            </AnimatedCard>
-          ))}
+        {/* Event Display */}
+        <div className="text-center flex-grow">
+          <p className="text-sm font-mono text-gray-400">{currentEvent.time}</p>
+          <p className="text-lg sm:text-xl font-bold text-cyan-400">{currentEvent.title}</p>
         </div>
 
-        {/* --- Partnership Tiers Table --- */}
-        <div>
-          <h2 className="text-3xl font-semibold text-center mb-10 flex items-center justify-center">
-            <Star className="h-8 w-8 text-yellow-400 mr-3" />
-            Our Partnership Tiers
-          </h2>
-          <div className="overflow-x-auto bg-gray-800 rounded-lg shadow-lg">
-            <table className="w-full min-w-max text-left">
-              <thead className="border-b border-gray-700">
-                <tr>
-                  <th className="p-4 py-5 text-lg font-semibold">Deliverables</th>
-                  <th className="p-4 py-5 text-center">
-                    <span className="block text-lg font-semibold">Platinum</span>
-                    <span className="text-sm text-gray-400">₹20,000</span>
-                  </th>
-                  <th className="p-4 py-5 text-center">
-                    <span className="block text-lg font-semibold">Gold</span>
-                    <span className="text-sm text-gray-400">₹15,000</span>
-                  </th>
-                  <th className="p-4 py-5 text-center">
-                    <span className="block text-lg font-semibold">Silver</span>
-                    <span className="text-sm text-gray-400">₹10,000</span>
-                  </th>
-                  <th className="p-4 py-5 text-center">
-                    <span className="block text-lg font-semibold">Bronze</span>
-                    <span className="text-sm text-gray-400">₹5,000</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-700">
-                {partnershipData.map((item) => (
-                  <tr key={item.deliverable} className="hover:bg-gray-700/50">
-                    <td className="p-4 font-medium">{item.deliverable}</td>
-                    <td className="p-4 text-center">
-                      {item.platinum && <Check className="h-6 w-6 text-green-400 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {item.gold && <Check className="h-6 w-6 text-green-400 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {item.silver && <Check className="h-6 w-6 text-green-400 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {item.bronze && <Check className="h-6 w-6 text-green-400 mx-auto" />}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* --- Scrolling Automobile Parts Banner --- */}
-        <AutomobilePartsBanner />
-
-        {/* --- Final CTA --- */}
-        <div className="text-center">
-          <h2 className="text-3xl font-semibold mb-4 text-blue-300">
-            Ready to Partner With Us?
-          </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
-            Join us in driving the future of vehicular technology. Contact us today to
-            discuss sponsorship opportunities.
-          </p>
-          <Link
-            to="/contact" // Or your contact/sponsorship page
-            className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors duration-200"
+        {/* Navigation Buttons */}
+        <div className="flex items-center gap-2">
+          <button 
+            type="button" 
+            onClick={handlePrev} 
+            disabled={currentStep === 0}
+            className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-gray-700 bg-transparent text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Become a Sponsor
-          </Link>
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button 
+            type="button" 
+            onClick={handleNext} 
+            disabled={currentStep === events.length - 1}
+            className="inline-flex items-center justify-center h-9 w-9 rounded-md border border-gray-700 bg-transparent text-gray-300 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
         </div>
-
       </div>
     </div>
   );
-};
+}
 
-export default SponsorsPage;

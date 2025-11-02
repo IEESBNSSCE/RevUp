@@ -11,7 +11,7 @@ import {
   HelpCircle,
   ChevronDown 
 } from 'lucide-react';
-import AssemblyLine from '../components/AssemblyLine';
+import Schedule from '../components/schedule';
 import RevUpLogo from '../assets/RevUp_White_Logo.png';
 
 // --- Reusable Animated Number Component ---
@@ -228,7 +228,7 @@ const RevUpPage = () => {
             <Crown className="h-8 w-8 text-yellow-400 mr-3" />
             The RevUp Assembly Line
           </h2>
-          <AssemblyLine />
+          <Schedule/>
         </div>
 
         {/* --- Registration Section --- */}

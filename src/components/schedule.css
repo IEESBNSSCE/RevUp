@@ -1,0 +1,16 @@
+/* This animation is used by the schedule.jsx component */
+.animate-scroll {
+    /* This creates the "scrolling" effect for the dashed line */
+    animation: scroll 1.5s linear infinite;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        /* This percentage should match the width of the dashed-line container */
+        transform: translateX(-50%);
+    }
+}
+

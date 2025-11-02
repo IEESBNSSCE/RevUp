@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# RevUp 2025 - Event Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the source code for the official website of **RevUp**, a flagship two-day immersive program hosted by the **IEEE Vehicular Technology Society Student Branch Chapter (VTS SBC)** of NSS College of Engineering, Palakkad.
 
-## Available Scripts
+The website is built with **React** and **Tailwind CSS** to provide a modern, responsive, and engaging experience for attendees and sponsors.
 
-In the project directory, you can run:
+## About The Event: RevUp
 
-### `npm start`
+**Date:** December 6 & 7, 2025
+**Host:** IEEE VTS SBC NSSCE
+**Audience:** For students from colleges, professionals and enthusiasts intrested in the vehicular domain.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+RevUp is designed to ignite curiosity and innovation in the ever-evolving field of vehicular technology. This two-day program brings together students, professionals, and enthusiasts through a blend of technical sessions, practical exposure, and networking opportunities.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Key Event Highlights
 
-### `npm test`
+Participants will have the unique opportunity to:
+* **Engage in Technical Workshops** on cutting-edge technologies.
+* **Attend Expert Talk Sessions** with industry leaders.
+* **Gain Practical Exposure** through industrial visits to leading organizations.
+* **Network** with peers and professionals.
+* **Experience** vibrant cultural evenings.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The event's vision is to "Engineer Smarter Mobility for a Connected Future," aligning with IEEE's global mission of advancing technology for humanity.
 
-### `npm run build`
+## About the Organizers
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* **IEEE VTS SBC NSSCE:** A dynamic platform at NSS College of Engineering dedicated to fostering innovation and research in vehicular technology, electric mobility, wireless communication, and intelligent transportation systems.
+* **IEEE SB NSSCE:** The parent student branch, formed in 1987. It is a vibrant community of over 700 members across 10 different technical societies, dedicated to advancing technology for the benefit of humanity.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Sponsorship Opportunities
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The RevUp website details opportunities for industry partnership. By sponsoring this event, organizations can:
+* Enhance brand visibility.
+* Engage with the next generation of technical leaders.
+* Strengthen industry-academia collaboration.
 
-### `npm run eject`
+Sponsorship tiers are available:
+* **Platinum:** ₹20,000
+* **Gold:** ₹15,000
+* **Silver:** ₹10,000
+* **Bronze:** ₹5,000
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<B>View details at our (live website)[]<B>

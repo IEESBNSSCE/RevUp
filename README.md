@@ -41,4 +41,4 @@ Sponsorship tiers are available:
 * **Silver:** ₹10,000
 * **Bronze:** ₹5,000
 
-<B>View details at our (live website)[]<B>
+<B>View details at our [live Website](https://IEEESBNSSCE.github.io/RevUp)<B>

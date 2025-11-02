@@ -1,0 +1,84 @@
+.assembly-line-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-color: #2d3748; /* gray-800 */
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.road {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 40px;
+    background-color: #4a5568;
+    background-image: repeating-linear-gradient(
+        90deg, 
+        #edf2f7, 
+        #edf2f7 20px, 
+        transparent 20px, 
+        transparent 40px
+    );
+    background-repeat: repeat-x;
+    background-position: 0 50%;
+    background-size: auto 4px;
+}
+
+.animate-scroll {
+    animation: scroll 2s linear infinite;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.car-wrapper {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px; /* Car width */
+    height: 50px; /* Car height */
+    z-index: 10;
+}
+
+.car-body {
+    width: 100%;
+    height: auto;
+}
+
+.wheel {
+    position: absolute;
+    bottom: 2px; /* Adjust vertical position */
+    width: 22px; /* Wheel diameter */
+    height: 22px; /* Wheel diameter */
+    background-color: #1a202c; /* Dark color for the tire */
+    border: 3px solid #718096; /* Rim color */
+    border-radius: 50%;
+    /* Rotation animation */
+    animation: rotate-wheel 0.5s linear infinite;
+}
+
+.wheel-rear {
+    left: 10px; /* Adjust horizontal position for the rear wheel */
+}
+
+.wheel-front {
+    right: 12px; /* Adjust horizontal position for the front wheel */
+}
+
+@keyframes rotate-wheel {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

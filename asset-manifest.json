@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/RevUp/static/css/main.c99dcbed.css",
+    "main.js": "/RevUp/static/js/main.70ab8d6f.js",
+    "static/js/453.9643174a.chunk.js": "/RevUp/static/js/453.9643174a.chunk.js",
+    "static/media/RevUp_White_Logo.png": "/RevUp/static/media/RevUp_White_Logo.c8a22a7b18cf4fe719f1.png",
+    "static/media/RevUp_Clean.png": "/RevUp/static/media/RevUp_Clean.3150774e6b9fffcb6537.png",
+    "index.html": "/RevUp/index.html",
+    "main.c99dcbed.css.map": "/RevUp/static/css/main.c99dcbed.css.map",
+    "main.70ab8d6f.js.map": "/RevUp/static/js/main.70ab8d6f.js.map",
+    "453.9643174a.chunk.js.map": "/RevUp/static/js/453.9643174a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c99dcbed.css",
+    "static/js/main.70ab8d6f.js"
+  ]
+}

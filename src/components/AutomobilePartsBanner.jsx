@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './AssemblyLine.css';
+//import './AssemblyLine.css';
 
 const AutomobilePartsBanner = () => {
   const parts = [

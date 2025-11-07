@@ -154,7 +154,7 @@ const registrationTiers = [
     title: 'NoN-IEEE Member',
     price: '₹499',
     type: 'All Participants',
-    link: 'https://docs.google.com/forms/d/e/1FAIpQLSen44awqppwOS2v08Y_gU6ymg22tzC8slJUPDuhpHE9FMMEUA/viewform?usp=dialog
+    link: 'https://docs.google.com/forms/d/e/1FAIpQLSen44awqppwOS2v08Y_gU6ymg22tzC8slJUPDuhpHE9FMMEUA/viewform?usp=dialog'
   }
 ];
 

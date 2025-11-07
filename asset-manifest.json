@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/RevUp/static/css/main.6e718ff3.css",
-    "main.js": "/RevUp/static/js/main.2af3fd6b.js",
+    "main.js": "/RevUp/static/js/main.77701cb5.js",
     "static/js/453.9643174a.chunk.js": "/RevUp/static/js/453.9643174a.chunk.js",
     "static/media/RevUp_White_Logo.png": "/RevUp/static/media/RevUp_White_Logo.c8a22a7b18cf4fe719f1.png",
     "static/media/RevUp_Clean.png": "/RevUp/static/media/RevUp_Clean.3150774e6b9fffcb6537.png",
     "index.html": "/RevUp/index.html",
     "main.6e718ff3.css.map": "/RevUp/static/css/main.6e718ff3.css.map",
-    "main.2af3fd6b.js.map": "/RevUp/static/js/main.2af3fd6b.js.map",
+    "main.77701cb5.js.map": "/RevUp/static/js/main.77701cb5.js.map",
     "453.9643174a.chunk.js.map": "/RevUp/static/js/453.9643174a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6e718ff3.css",
-    "static/js/main.2af3fd6b.js"
+    "static/js/main.77701cb5.js"
   ]
 }
